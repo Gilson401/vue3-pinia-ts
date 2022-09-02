@@ -1,8 +1,7 @@
 {
-  "name": "vitecamp",
+  "name": "vue3-pinia-ts",
   "version": "0.0.0",
-  "author": "菜猫子neko",
-  "packageManager": "pnpm@7.9.0",
+  "author": "dev.gpsc@gmail.com",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
