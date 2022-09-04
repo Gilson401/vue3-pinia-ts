@@ -2,7 +2,7 @@
 <template>
   <PageHeader
     :title="pokemonComputed"
-    description="esta pagina utiliza um serviço axios que consome a a-p-i do Pokemon"
+    description="Esta página utiliza um serviço axios que consome a API do Pokemon"
   />
 
   <div class="container">
@@ -46,13 +46,12 @@ import { onMounted, ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import { Search } from '@element-plus/icons-vue';
 import servicePokemon from '@/api/httpPokemon';
+import { IPokemon } from '@/types/pokemon';
+import usePokemon from '@/store/pokemon';
 
-interface PokeDisplay {
-  name: string;
-  imageSrc: string;
-}
+const pokemonStore = usePokemon();
 
-const pokemon = ref<PokeDisplay>();
+const pokemon = ref<IPokemon | undefined>({ name: '', imageSrc: '' });
 
 const pokemonComputed = computed(() => {
   return pokemon.value?.name ? `Pokemon atual: ${pokemon.value?.name}` : 'Busque um pokemon pelo formuário abaixo';
@@ -91,7 +90,14 @@ const search = async () => {
   }
 };
 
-const savePokemonToStore = () => {};
+const savePokemonToStore = (): void => {
+  pokemonStore.addPokemon(pokemon as IPokemon);
+  ElNotification({
+    title: 'Sucesso.',
+    message: `O Pokemom ${pokemon.value?.name} foi salvo na store.`,
+    type: 'success',
+  });
+};
 
 onMounted(async () => {
   const route = useRoute();
@@ -107,42 +113,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-.demo-image__error .block {
-  padding: 30px 0;
-  text-align: center;
-  border-right: solid 1px var(--el-border-color);
-  display: inline-block;
-  width: 49%;
-  box-sizing: border-box;
-  vertical-align: top;
-}
-.demo-image__error .demonstration {
-  display: block;
-  color: var(--el-text-color-secondary);
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-.demo-image__error .el-image {
-  padding: 0 5px;
-  max-width: 300px;
-  max-height: 200px;
-  width: 100%;
-  height: 200px;
-}
-
-.demo-image__error .image-slot {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background: var(--el-fill-color-light);
-  color: var(--el-text-color-secondary);
-  font-size: 30px;
-}
-.demo-image__error .image-slot .el-icon {
-  font-size: 30px;
-}
-</style>
