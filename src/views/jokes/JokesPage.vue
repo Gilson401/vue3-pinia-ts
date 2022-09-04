@@ -35,12 +35,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
+import useJokes from '@/store/jokes';
 import serviceJokes from '@/api/httpJokes';
+import { IJoke } from '@/types/jokes';
 
-interface IJoke {
-  joke: string;
-}
+const jokesStore = useJokes();
 
 const jokeItem = ref<IJoke>();
 
@@ -60,9 +59,10 @@ const search = async () => {
 };
 
 const saveJokeToStore = () => {
+  jokesStore.addJoke(jokeItem as IJoke);
   ElNotification({
-    title: 'Salvou.',
-    message: `Piada salva na store.`,
+    title: 'Sucesso.',
+    message: `Piada "${jokeItem.value?.joke}" foi armazenada na store.`,
     type: 'success',
   });
 };
