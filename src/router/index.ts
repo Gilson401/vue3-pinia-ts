@@ -4,17 +4,9 @@ import exceptionRoutes from '@/router/route.exception';
 import asyncRoutes from '@/router/route.async';
 import commonRoutes from '@/router/route.common';
 
-const routes: Array<RouteRecordRaw> = [
-  // 无鉴权的业务路由 ex:登录
-  ...commonRoutes,
-  // 带鉴权的业务路由
-  ...asyncRoutes,
-  // 异常页必须放在路由匹配规则的最后
-  ...exceptionRoutes,
-];
+const routes: Array<RouteRecordRaw> = [...commonRoutes, ...asyncRoutes, ...exceptionRoutes];
 
 const router: Router = createRouter({
-  // 新的vue-router4 使用 history路由模式 和 base前缀
   history: createWebHistory(import.meta.env.VITE_BASE),
   routes,
 });
@@ -26,8 +18,6 @@ const router: Router = createRouter({
  * @return {*}
  */
 router.beforeEach((to, from) => {
-  console.log('全局路由前置守卫：to,from\n', to, from);
-  // 设置页面标题
   document.title = (to.meta.title as string) || import.meta.env.VITE_APP_TITLE;
   if (!NProgress.isStarted()) {
     NProgress.start();
@@ -35,7 +25,6 @@ router.beforeEach((to, from) => {
 });
 
 router.afterEach((to, from) => {
-  console.log('全局路由后置守卫：to,from\n', to, from);
   NProgress.done();
 });
 
