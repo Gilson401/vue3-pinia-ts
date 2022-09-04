@@ -10,6 +10,7 @@
   "change lang": "Switch languages",
   "method to using": "Method of using template",
   "template process": "Template configuration process",
-  
+  "404 message": "Please check the path and try again or go back to the home page",
+  "page not found": "Page not found",
   "based": "Based Vitecamp Template"
 }
