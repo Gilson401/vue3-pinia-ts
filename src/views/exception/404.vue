@@ -1,9 +1,13 @@
 <template>
   <el-row>
     <el-col>
-      <el-result icon="warning" title="页面未找到" sub-title="请检查路径后重试或返回首页">
+      <el-result icon="warning" :title="t('page not found')" :sub-title="t('404 message')">
         <template #extra>
-          <el-button type="primary" @click="goBack">Back</el-button>
+          <el-button type="primary">
+            <router-link to="/">
+              <span>HOME</span>
+            </router-link>
+          </el-button>
         </template>
       </el-result>
     </el-col>
@@ -11,10 +15,5 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter();
-const goBack = () => {
-  router.push({
-    name: 'home',
-  });
-};
+const { t } = useI18n();
 </script>
