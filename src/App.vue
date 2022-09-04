@@ -5,6 +5,8 @@ const locale = zhCn;
 </script>
 
 <template>
+  <TheNavBar />
+
   <div class="m-5">
     <el-config-provider :locale="locale">
       <router-view></router-view>
