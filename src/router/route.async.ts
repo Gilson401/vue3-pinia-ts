@@ -12,7 +12,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/home/index.vue'),
   },
   {
-    path: '/poke',
+    path: '/poke/:id?',
     name: 'poke',
     meta: {
       title: 'poke',
@@ -21,13 +21,13 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/example/PokemonPage.vue'),
   },
   {
-    path: '/poke/:id',
-    name: 'poke',
+    path: '/jokes',
+    name: 'jokes',
     meta: {
-      title: 'poke',
+      title: 'jokes',
       icon: '',
     },
-    component: () => import('@/views/example/PokemonPage.vue'),
+    component: () => import('@/views/jokes/JokesPage.vue'),
   },
 ];
 
