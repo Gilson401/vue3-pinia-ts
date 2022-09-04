@@ -1,0 +1,14 @@
+{
+  "hello": "Oi",
+  "welcome to": "Seja bem vindo ao",
+  "includes features": "um template de zero config que inclui",
+  "before coding": "Antes de Codar",
+  "setup ide": "Eu recomendo que prepare sua IDE",
+  "home": "Início",
+  "change light": "Clique para trocar a cor do tema para claro",
+  "change dark": "Clique para trocar a cor do tema para escuro",
+  "change lang": "Alternar idioma",
+  "method to using": "Método para usar o template",
+  "template process": "Configuração do template",
+  "based": "Feito com o apoio do Template Vitecamp",
+}
