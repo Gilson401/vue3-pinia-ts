@@ -19,18 +19,6 @@
       </button>
     </el-tooltip>
 
-    <el-tooltip :content="t('method to using')" placement="top">
-      <router-link class="icon-btn mx-2" to="/process">
-        <i-ri-article-line class="icon-footer" />
-      </router-link>
-    </el-tooltip>
-
-    <el-tooltip :content="t('template process')" placement="top">
-      <a class="icon-btn mx-2" href="https://juejin.cn/post/7058201396113309703" target="_blank" title="JveJin">
-        <i-mdi-content-duplicate class="icon-footer" />
-      </a>
-    </el-tooltip>
-
     <el-tooltip content="GitHub" placement="top">
       <a class="icon-btn mx-2" href="https://github.com/nekobc1998923/vitecamp" target="_blank" title="GitHub">
         <i-akar-icons-github-fill class="icon-footer" />
@@ -45,6 +33,7 @@ import { isDark, toggleDark } from '@/utils/dark';
 const { t, availableLocales, locale } = useI18n();
 const toggleLocales = () => {
   const locales = availableLocales;
+  console.log((locales.indexOf(locale.value) + 1) % locales.length);
   locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length];
 };
 </script>
