@@ -1,14 +1,41 @@
 <template>
   <div class="container max-w-3xl mx-auto mt-40">
     <div class="h-60 mb-8">
-      <div class="w-52 h-52 mx-auto mb-4"><vitecamp class="w-52 h-52"></vitecamp></div>
+      <div class="mx-auto mb-4 flex">
+        <img src="../../assets/images/vue3.PNG" alt="vue3.PNG" />
+        <img src="../../assets/images/typescript.PNG" alt="typescript.PNG" />
+        <img src="../../assets/images/pinia.PNG" alt="pinia.PNG" />
+        <vitecamp class="w-52 h-52"></vitecamp>
+      </div>
     </div>
     <div class="text-center text-md">
-      <h1 class="font-serif font-bold text-4xl mb-8">{{ t('hello') }} , {{ t('welcome to') }} Vitecamp</h1>
+      <h1 class="font-serif font-bold text-4xl mb-8">
+        {{ t('hello') }} , {{ t('welcome to') }} Vue3 - Pinia - Tyescript Projetc
+      </h1>
+
+      <div class="text-left mb-6">
+        <p class="mb-3 font-semibold">O que este projeto demonstra:</p>
+
+        <ul>
+          <li>Vue3 com Typescript e composition API;</li>
+          <li>Consumo de duas APIS públicas com serviços dedicados com Axios;</li>
+          <li>Armazenamento de dados na store Pinia, uma para cada serviço;</li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+
+      <p class="mb-10">
+        <a class="icon-btn mx-2" href="https://github.com/nekobc1998923/vitecamp" target="_blank" title="GitHub">
+          {{ t('based') }}
+        </a>
+      </p>
+
       <p class="mb-10">
         <strong>Vitecamp</strong>
         {{ t('includes features') }}
       </p>
+
       <p class="mb-10">
         <template v-for="(item, index) in featureList" :key="index">
           <a :href="item.href" target="_blank">{{ item.name }}</a>
@@ -21,15 +48,25 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import vitecamp from '@/assets/svg/vitecamp.svg?component';
+import serviceApi from '@/api/modules/login';
 
+const el = ref();
 const { t } = useI18n();
-ElMessage.success({ message: 'welcome', duration: 1000 });
-ElNotification({
-  title: 'Issue',
-  message: 'If you encounter problems in using the template, please raise them in the issue',
-  duration: 0,
+// ElMessage.success({ message: 'welcome', duration: 1000 });
+// ElNotification({
+//   title: 'Issue',
+//   message: 'If you encounter problems in using the template, please raise them in the issue',
+//   duration: 0,
+// });
+
+onMounted(() => {
+  console.log('onMounted');
+  const res = serviceApi.getData('ditto');
+  el.value = res;
 });
+
 const featureList = [
   {
     name: 'Vite3',
@@ -105,6 +142,9 @@ const featureList = [
 
 <style lang="scss" scoped>
 a {
-  @apply text-sky-400 hover:(text-sky-600) transition-all ease-out duration-100;
+  @apply text-sky-300 hover:(text-sky-600) transition-all ease-out duration-100;
+}
+img {
+  @apply h-full w-auto;
 }
 </style>

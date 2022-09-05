@@ -5,7 +5,7 @@
     description="Esta página utiliza um serviço axios que consome a API do Pokemon"
   />
 
-  <div class="container">
+  <div class="w-full">
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="Pokemon">
         <el-input v-model="formInline.pokemon" placeholder="Ex. ditto" :prefix-icon="Search" />
@@ -38,12 +38,22 @@
         <el-button type="primary" plain @click="savePokemonToStore">Guardar</el-button>
       </el-row>
     </div>
+
+    <div class="el-container h-96 bg-green-300 w-full">
+      <div class="el-row">
+        <div v-for="(item, index) in pokemonStore.items" :key="index" class="el-col-3">
+          <p>Object: {{ item }}</p>
+          <img :src="item?.imageSrc" class="w-50 h-50" :alt="item?.name" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { Search } from '@element-plus/icons-vue';
 import servicePokemon from '@/api/httpPokemon';
 import { IPokemon } from '@/types/pokemon';
@@ -51,10 +61,16 @@ import usePokemon from '@/store/pokemon';
 
 const pokemonStore = usePokemon();
 
-const pokemon = ref<IPokemon | undefined>({ name: '', imageSrc: '' });
+const { items } = storeToRefs(usePokemon());
+
+const pokemon = ref<IPokemon | undefined>();
 
 const pokemonComputed = computed(() => {
   return pokemon.value?.name ? `Pokemon atual: ${pokemon.value?.name}` : 'Busque um pokemon pelo formuário abaixo';
+});
+
+const pokemonStoreList = computed(() => {
+  return items;
 });
 
 const formInline = reactive({
@@ -91,6 +107,8 @@ const search = async () => {
 };
 
 const savePokemonToStore = (): void => {
+  console.log(items.value);
+
   pokemonStore.addPokemon(pokemon as IPokemon);
   ElNotification({
     title: 'Sucesso.',
