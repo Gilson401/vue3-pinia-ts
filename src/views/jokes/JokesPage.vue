@@ -4,7 +4,7 @@
     description="Esta página utiliza um serviço axios e consome a API de piadas nerds."
   />
 
-  <div class="container">
+  <div class="">
     <el-form class="demo-form-inline">
       <el-form-item>
         <div class="text-2xl">Clique no botão. Uma piada nerd aleatória será exibida. Se gostar clique em salvar.</div>
@@ -28,6 +28,20 @@
         <el-row justify="center" class="pt-6">
           <el-button c type="primary" @click="saveJokeToStore">Guardar</el-button>
         </el-row>
+      </el-card>
+    </div>
+
+    <div class="flex bg-red-400 w-full mt-10">
+      <el-card v-if="jokeItem?.joke" class="box-card">
+        <template #header>
+          <div class="card-header">
+            <span>Piada encontrada</span>
+          </div>
+        </template>
+
+        <p class="text-xl">
+          {{ jokeItem?.joke }}
+        </p>
       </el-card>
     </div>
   </div>

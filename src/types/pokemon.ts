@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 export interface IPokemon {
+  id?: number;
   name?: string | undefined;
   imageSrc?: string | undefined;
 }

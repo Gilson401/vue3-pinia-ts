@@ -4,46 +4,58 @@
     :title="pokemonComputed"
     description="Esta página utiliza um serviço axios que consome a API do Pokemon"
   />
+  <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form-item label="Pokemon">
+      <el-input v-model="formInline.pokemon" placeholder="Ex. ditto" :prefix-icon="Search" />
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="search">Buscar</el-button>
+    </el-form-item>
+  </el-form>
+  <div>
+    <div class="w-full flex">
+      <div v-if="pokemon?.name" class="p-5 border rounded-md border-gray-400 w-3xl">
+        <div>
+          <el-alert
+            v-if="formInline.pokemon"
+            :title="formInline.pokemon"
+            type="info"
+            effect="dark"
+            center
+            show-icon
+            :closable="false"
+          />
+        </div>
 
-  <div class="w-full">
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="Pokemon">
-        <el-input v-model="formInline.pokemon" placeholder="Ex. ditto" :prefix-icon="Search" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="search">Buscar</el-button>
-      </el-form-item>
-    </el-form>
+        <el-container :v-loading="true">
+          <el-row justify="center" class="w-full flex">
+            <el-image class="w-1/2 h-auto" :src="pokemon?.imageSrc" fit="cover"> </el-image>
+          </el-row>
+        </el-container>
 
-    <div v-if="pokemon?.name" class="p-5 border rounded-md border-gray-400 w-3xl">
-      <div>
-        <el-alert
-          v-if="formInline.pokemon"
-          :title="formInline.pokemon"
-          type="info"
-          effect="dark"
-          center
-          show-icon
-          :closable="false"
-        />
-      </div>
-
-      <el-container :v-loading="true">
-        <el-row justify="center" class="w-full">
-          <el-image class="w-1/2 h-auto" :src="pokemon?.imageSrc" fit="cover"> </el-image>
+        <el-row class="mb-4" justify="center">
+          <el-button type="primary" plain @click="savePokemonToStore">Guardar</el-button>
         </el-row>
-      </el-container>
+      </div>
+      <div class="p-10 text-2xl">
+        <p>
+          Digite um nome de um pokemon no input al lado e clique em buscar. Quando opokemon for exibido na imagem será
+          possível salvar o mesmo na store.
+        </p>
 
-      <el-row class="mb-4" justify="center">
-        <el-button type="primary" plain @click="savePokemonToStore">Guardar</el-button>
-      </el-row>
+        <p class="mt-10">Os Pokemons armazenados na store serão exibidos na div flex abaixo</p>
+      </div>
     </div>
-
-    <div class="el-container h-96 bg-green-300 w-full">
-      <div class="el-row">
-        <div v-for="(item, index) in pokemonStore.items" :key="index" class="el-col-3">
-          <p>Object: {{ item }}</p>
-          <img :src="item?.imageSrc" class="w-50 h-50" :alt="item?.name" />
+    <div class="p-3 mt-3 h-96 bg-gray-100 w-full">
+      <h3 class="text-2xl mb-3">Pokemons in Store Pinia</h3>
+      <div class="flex space-x-3">
+        <div
+          v-for="item of pokemonStore.getItems"
+          :key="item.id"
+          class="border rounded-lg justify-center bg-light-50 p-3"
+        >
+          <p class="text-center first-letter:uppercase font-bold">{{ item?.name }}</p>
+          <img :src="item?.imageSrc" class="w-20 h-20" :alt="item?.name" />
         </div>
       </div>
     </div>
@@ -61,7 +73,7 @@ import usePokemon from '@/store/pokemon';
 
 const pokemonStore = usePokemon();
 
-const { items } = storeToRefs(usePokemon());
+const { items } = storeToRefs(pokemonStore);
 
 const pokemon = ref<IPokemon | undefined>();
 
@@ -69,18 +81,11 @@ const pokemonComputed = computed(() => {
   return pokemon.value?.name ? `Pokemon atual: ${pokemon.value?.name}` : 'Busque um pokemon pelo formuário abaixo';
 });
 
-const pokemonStoreList = computed(() => {
-  return items;
-});
-
 const formInline = reactive({
   pokemon: 'pikachu',
-  region: '',
 });
 
 const search = async () => {
-  console.log('submit!', { formInline });
-
   if (!formInline.pokemon) {
     ElNotification({
       title: 'Aviso.',
@@ -107,9 +112,10 @@ const search = async () => {
 };
 
 const savePokemonToStore = (): void => {
-  console.log(items.value);
-
-  pokemonStore.addPokemon(pokemon as IPokemon);
+  pokemonStore.addPokemon({
+    imageSrc: pokemon.value?.imageSrc,
+    name: pokemon.value?.name,
+  });
   ElNotification({
     title: 'Sucesso.',
     message: `O Pokemom ${pokemon.value?.name} foi salvo na store.`,
