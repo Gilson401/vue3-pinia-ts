@@ -17,6 +17,9 @@ const useJokes = defineStore({
     addJoke(item: IJoke): void {
       this.items.push(item);
     },
+    removeJoke(id: number | undefined): void {
+      this.items.splice(<number>id, 1);
+    },
   },
 });
 

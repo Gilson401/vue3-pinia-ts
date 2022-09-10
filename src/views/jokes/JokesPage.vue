@@ -14,33 +14,36 @@
       </el-form-item>
     </el-form>
 
-    <div class="w-3xl">
-      <el-card v-if="jokeItem?.joke" class="box-card">
-        <template #header>
-          <div class="card-header">
-            <span>Piada encontrada</span>
-          </div>
-        </template>
+    <div class="w-3xl min-h-20">
+      <el-container v-loading="loading">
+        <el-card v-if="jokeItem?.joke" class="box-card">
+          <template #header>
+            <div class="card-header">
+              <span>Piada encontrada</span>
+            </div>
+          </template>
 
-        <p class="text-xl">
-          {{ jokeItem?.joke }}
-        </p>
-        <el-row justify="center" class="pt-6">
-          <el-button c type="primary" @click="saveJokeToStore">Guardar</el-button>
-        </el-row>
-      </el-card>
+          <p class="text-xl">
+            {{ jokeItem?.joke }}
+          </p>
+          <el-row justify="center" class="pt-6">
+            <el-button c type="primary" @click="saveJokeToStore">Guardar</el-button>
+          </el-row>
+        </el-card>
+      </el-container>
     </div>
 
-    <div class="flex bg-red-400 w-full mt-10">
-      <el-card v-if="jokeItem?.joke" class="box-card">
+    <div class="grid grid-cols-4 w-full mt-3 gap-2">
+      <el-card v-for="item of jokesStore.getJokes" :key="item.id" class="box-card">
         <template #header>
-          <div class="card-header">
-            <span>Piada encontrada</span>
+          <div class="card-header flex justify-between">
+            <span>Piada id: {{ item.id }}</span>
+            <el-button type="warning" @click="remove(item?.id)">Remove </el-button>
           </div>
         </template>
 
         <p class="text-xl">
-          {{ jokeItem?.joke }}
+          {{ item.joke }}
         </p>
       </el-card>
     </div>
@@ -56,9 +59,22 @@ import { IJoke } from '@/types/jokes';
 const jokesStore = useJokes();
 
 const jokeItem = ref<IJoke>();
+const loading = ref(false);
+
+const remove = (id: number | undefined) => {
+  console.log('remove', id);
+
+  jokesStore.removeJoke(id);
+  ElNotification({
+    title: 'Sucesso.',
+    message: `Piada "${id}" foi remvida da store.`,
+    type: 'success',
+  });
+};
 
 const search = async () => {
   try {
+    loading.value = true;
     const res = await serviceJokes.getjokes();
     jokeItem.value = {
       joke: res,
@@ -70,10 +86,12 @@ const search = async () => {
       type: 'error',
     });
   }
+  loading.value = false;
 };
 
 const saveJokeToStore = () => {
-  jokesStore.addJoke(jokeItem as IJoke);
+  const id = jokesStore.getJokes.length;
+  jokesStore.addJoke({ joke: jokeItem.value?.joke, id });
   ElNotification({
     title: 'Sucesso.',
     message: `Piada "${jokeItem.value?.joke}" foi armazenada na store.`,

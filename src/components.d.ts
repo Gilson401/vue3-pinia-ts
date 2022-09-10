@@ -44,4 +44,7 @@ declare module '@vue/runtime-core' {
     TheNavBar: typeof import('./components/TheNavBar.vue')['default']
     ZhProcess: typeof import('./components/ZhProcess.md')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
