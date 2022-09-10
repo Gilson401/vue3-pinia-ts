@@ -1,28 +1,27 @@
 <template>
   <div class="container max-w-3xl mx-auto mt-40">
-    <div class="h-60 mb-8">
-      <div class="mx-auto mb-4 flex">
+    <div class="mb-8">
+      <h1 class="font-serif font-bold text-5xl mb-8 text-center">{{ t('hello') }} Vue3, Pinia and Tyescript</h1>
+      <div class="mx-auto mb-4 grid grid-cols-3">
         <img src="../../assets/images/vue3.PNG" alt="vue3.PNG" />
         <img src="../../assets/images/typescript.PNG" alt="typescript.PNG" />
         <img src="../../assets/images/pinia.PNG" alt="pinia.PNG" />
-        <vitecamp class="w-52 h-52"></vitecamp>
+        <!-- <vitecamp class="w-52 h-52"></vitecamp> -->
       </div>
     </div>
     <div class="text-center text-md">
-      <h1 class="font-serif font-bold text-4xl mb-8">
-        {{ t('hello') }} , {{ t('welcome to') }} Vue3 - Pinia - Tyescript Projetc
-      </h1>
-
       <div class="text-left mb-6">
-        <p class="mb-3 font-semibold">O que este projeto demonstra:</p>
+        <p class="mt-30 mb-3 font-semibold text-2xl">O que este projeto demonstra:</p>
 
-        <ul>
+        <ul class="text-lg">
           <li>Vue3 com Typescript e composition API;</li>
           <li>Consumo de duas APIS públicas com serviços dedicados com Axios;</li>
           <li>Armazenamento de dados na store Pinia, uma para cada serviço;</li>
           <li></li>
           <li></li>
         </ul>
+
+        <p class="my-20 font-semibold text-2xl">Use o menu no topo da página para navegar.</p>
       </div>
 
       <p class="mb-10">

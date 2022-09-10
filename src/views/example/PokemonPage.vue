@@ -13,23 +13,21 @@
     </el-form-item>
   </el-form>
   <div>
-    <div class="w-full flex">
-      <div v-if="pokemon?.name" class="p-5 border rounded-md border-gray-400 w-3xl">
-        <div>
-          <el-alert
-            v-if="formInline.pokemon"
-            :title="formInline.pokemon"
-            type="info"
-            effect="dark"
-            center
-            show-icon
-            :closable="false"
-          />
-        </div>
+    <div class="w-full justify-center flex flex-wrap lg:flex-nowrap">
+      <div v-if="pokemon?.name" class="w-full lg:w-1/2 p-5 border rounded-md border-gray-400 w-3xl">
+        <el-alert
+          v-if="formInline.pokemon"
+          :title="formInline.pokemon"
+          type="info"
+          effect="dark"
+          center
+          show-icon
+          :closable="false"
+        />
 
         <el-container :v-loading="true">
           <el-row justify="center" class="w-full flex">
-            <el-image class="w-1/2 h-auto" :src="pokemon?.imageSrc" fit="cover"> </el-image>
+            <el-image class="h-auto" :src="pokemon?.imageSrc" fit="cover"> </el-image>
           </el-row>
         </el-container>
 
@@ -46,14 +44,16 @@
         <p class="mt-10">Os Pokemons armazenados na store serão exibidos na div flex abaixo</p>
       </div>
     </div>
-    <div class="p-3 mt-3 h-96 bg-gray-100 w-full">
-      <h3 class="text-2xl mb-3">Pokemons in Store Pinia</h3>
-      <div class="flex space-x-3">
-        <div
-          v-for="item of pokemonStore.getItems"
-          :key="item.id"
-          class="border rounded-lg justify-center bg-light-50 p-3"
-        >
+  </div>
+  <div class="p-3 mt-3 h-96 bg-gray-100 w-full">
+    <h3 class="text-2xl mb-3">Pokemons in Store Pinia</h3>
+    <div class="grid grid-cols-4 lg:grid-cols-6 w-full mt-3 gap-2">
+      <div
+        v-for="item of pokemonStore.getItems"
+        :key="item.id"
+        class="border rounded-lg justify-center flex bg-light-50 p-3"
+      >
+        <div>
           <p class="text-center first-letter:uppercase font-bold">{{ item?.name }}</p>
           <img :src="item?.imageSrc" class="w-20 h-20" :alt="item?.name" />
         </div>
@@ -82,7 +82,7 @@ const pokemonComputed = computed(() => {
 });
 
 const formInline = reactive({
-  pokemon: 'pikachu',
+  pokemon: '',
 });
 
 const search = async () => {
