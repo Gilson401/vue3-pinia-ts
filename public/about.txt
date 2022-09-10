@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Kavivanar
+- Font Author: Copyright (c) 2015, Tharique Azeez (http://thariqueazeez.com|zeezat@gmail.com)
+- Font Source: http://fonts.gstatic.com/s/kavivanar/v18/o-0IIpQgyXYSwhxP7_Jb4j5Ba_2c7A.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
