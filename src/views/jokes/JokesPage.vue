@@ -36,7 +36,7 @@
     <p class="bg-blue-400 rounded-lg text-white text-2xl mt-3 p-5">Piadas salvas:</p>
     <div class="grid md:grid-cols-2 lg:grid-cols-4 mt-3 gap-2">
       <div v-for="item of jokesStore.getJokes" :key="item.id">
-        <el-card class="box-card">
+        <el-card class="box-card h-full">
           <template #header>
             <div class="card-header flex justify-between w-full">
               <span>Piada id: {{ item.id }}</span>
