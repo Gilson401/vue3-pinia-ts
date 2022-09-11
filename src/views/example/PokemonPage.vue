@@ -70,9 +70,11 @@
         :key="item.id"
         class="border rounded-lg justify-center flex bg-light-50 p-3"
       >
-        <div>
-          <p class="text-center first-letter:uppercase font-bold">{{ item?.name }}</p>
-          <img :src="item?.imageSrc" class="w-20 h-20" :alt="item?.name" />
+        <div class="truncate">
+          <div class="text-center truncate first-letter:uppercase font-bold">
+            {{ item?.name }}
+          </div>
+          <img :src="item?.imageSrc" class="w-20 h-20 mx-auto" :alt="item?.name" />
         </div>
       </div>
     </div>
