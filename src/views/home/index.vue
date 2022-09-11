@@ -3,9 +3,9 @@
     <div class="mb-8">
       <h1 class="font-serif font-bold text-5xl mb-8 text-center">{{ t('hello') }} Vue3, Pinia and Tyescript</h1>
       <div class="mx-auto mb-4 grid grid-cols-3">
-        <img src="../../assets/images/vue3.png" alt="vue3.png" />
-        <img src="../../assets/images/typescript.png" alt="typescript.png" />
-        <img src="../../assets/images/pinia.png" alt="pinia.png" />
+        <img src="@/assets/images/vue3.png" alt="vue3.png" />
+        <img src="@/assets/images/typescript.png" alt="typescript.png" />
+        <img src="@/assets/images/pinia.png" alt="pinia.png" />
         <!-- <vitecamp class="w-52 h-52"></vitecamp> -->
       </div>
     </div>
