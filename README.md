@@ -1,6 +1,6 @@
 # vue3-pinia-ts
 
-vue3-pinia-ts é uma aplicação Front End feita com o framework Vue3 + Typescript + gerenciamento de estados com Pinia.
+Vue3-pinia-ts ia a Front End app done with  Vue3 framework + Typescript + Pinia State Manager.
 
 ## Installation
 
@@ -20,12 +20,12 @@ VITE_API_BASEURL_POKEMON = https://pokeapi.co/api/v2/pokemon
 
 VITE_API_BASEURL_JOKES = https://geek-jokes.sameerkumar.website
 
+Run:
 
 ```bash
 npm run dev
 ```
-
-The app will run at 
+And the app will run at 
 
  ➜  Local:   http://localhost:8080/
 
