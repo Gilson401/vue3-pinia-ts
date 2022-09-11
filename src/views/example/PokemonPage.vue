@@ -4,6 +4,15 @@
     :title="pokemonComputed"
     description="Esta página utiliza um serviço axios que consome a API do Pokemon"
   />
+
+  <div class="pb-5 text-base">
+    <p>
+      Digite um nome de um pokemon no input e clique em buscar. Quando opokemon for exibido será possível salvar o mesmo
+      na store.
+    </p>
+
+    <p class="mt-2">Os Pokemons armazenados na store serão exibidos na div flex abaixo</p>
+  </div>
   <el-form :inline="true" :model="formInline" class="demo-form-inline">
     <el-form-item label="Pokemon">
       <el-input v-model="formInline.pokemon" placeholder="Ex. ditto" :prefix-icon="Search" />
@@ -12,6 +21,22 @@
       <el-button type="primary" @click="search">Buscar</el-button>
     </el-form-item>
   </el-form>
+
+  <div class="mb-3">
+    <p class="my-3 font-bold">Sugestões:</p>
+
+    <div class="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-8 gap-2 justify-between">
+      <div
+        v-for="suggest in suggestedPokemons"
+        :key="suggest"
+        class="bg-green-600 rounded-md px-2 cursor-pointer text-white"
+        @click="onClickSuggest(suggest)"
+      >
+        {{ suggest }}
+      </div>
+    </div>
+  </div>
+
   <div>
     <div class="w-full justify-center flex flex-wrap lg:flex-nowrap">
       <div v-if="pokemon?.name" class="w-full lg:w-1/2 p-5 border rounded-md border-gray-400 w-3xl">
@@ -34,14 +59,6 @@
         <el-row class="mb-4" justify="center">
           <el-button type="primary" plain @click="savePokemonToStore">Guardar</el-button>
         </el-row>
-      </div>
-      <div class="p-10 text-2xl">
-        <p>
-          Digite um nome de um pokemon no input al lado e clique em buscar. Quando opokemon for exibido na imagem será
-          possível salvar o mesmo na store.
-        </p>
-
-        <p class="mt-10">Os Pokemons armazenados na store serão exibidos na div flex abaixo</p>
       </div>
     </div>
   </div>
@@ -85,6 +102,39 @@ const formInline = reactive({
   pokemon: '',
 });
 
+const suggestedPokemons = [
+  'Dedenne',
+  'Cincinno',
+  'Sableye',
+  'Snivy',
+  'Magnemite',
+  'Swadloon',
+  'Pikachu',
+  'Buzzwole',
+  'Oshawott',
+  'Flygon',
+  'Whismur',
+  'Piplup',
+  'Chandelure',
+  'Empoleon',
+  'Luxray',
+  'Greninja',
+  'Jirachi',
+  'Charizard',
+  'Mimikyu',
+  'Inteleon',
+  'Eevee',
+  'Barbaracle',
+  'Glaceon',
+  'Spheal',
+  'Scolipede',
+  'Lilligant',
+  'Bulbasaur',
+  'Sliggoo',
+  'Lucario',
+  'Gardevoir',
+].sort();
+
 const search = async () => {
   if (!formInline.pokemon) {
     ElNotification({
@@ -109,6 +159,11 @@ const search = async () => {
       type: 'error',
     });
   }
+};
+
+const onClickSuggest = async (suggest: string) => {
+  formInline.pokemon = suggest.toLowerCase();
+  await search();
 };
 
 const savePokemonToStore = (): void => {
