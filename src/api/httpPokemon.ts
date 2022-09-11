@@ -34,16 +34,16 @@ axiosInstance.interceptors.response.use(
     if (response.status === 200) {
       return response.data;
     }
-    ElMessage.info(JSON.stringify(response.status));
+    alert(JSON.stringify(response.status));
     return response;
   },
   (error: AxiosError) => {
     const { response } = error;
     if (response) {
-      ElMessage.error(showCodeMessage(response.status));
+      alert(showCodeMessage(response.status));
       return Promise.reject(response.data);
     }
-    ElMessage.warning('网络连接异常,请稍后再试!');
+    alert('网络连接异常,请稍后再试!');
     return Promise.reject(error);
   },
 );
