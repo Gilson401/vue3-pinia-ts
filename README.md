@@ -1,19 +1,35 @@
-https://github.com/nekobc1998923/vitecamp
+# vue3-pinia-ts
 
-https://github.com/Gilson401/vue3-pinia-ts
+vue3-pinia-ts é uma aplicação Front End feita com o framework Vue3 + Typescript + gerenciamento de estados com Pinia.
 
-https://element-plus.org/en-US/component/button.html#basic-usage
+## Installation
 
+Clone the project and use the package manager npm  to install vue3-pinia-ts.
+At project root, run:
 
+```bash
+npm install 
+```
 
-https://github.com/latruonghai/vue-todo-list/blob/6a9f63faa005c8dd4dd4883910c7e82005824ad8/src/components/TodoList.vue
-
-https://github.com/latruonghai/vue-todo-list/search?q=computed
-
-https://github.com/search?q=pinia+setup+typescript+todo-list&type=code
-
-
-https://github.com/biroplane/cortex-website/tree/f65db559df134fe8b2787b3eab82ce4524bc7f58/todolist/src
+## Usage
 
 
-https://blog.logrocket.com/complex-vue-3-state-management-pinia/
+Update env vars with:
+
+VITE_API_BASEURL_POKEMON = https://pokeapi.co/api/v2/pokemon
+
+VITE_API_BASEURL_JOKES = https://geek-jokes.sameerkumar.website
+
+
+```bash
+npm run dev
+```
+
+The app will run at 
+
+ ➜  Local:   http://localhost:8080/
+
+ ➜  Network: http://192.168.0.107:8080/
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
