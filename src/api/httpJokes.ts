@@ -33,16 +33,16 @@ axiosInstance.interceptors.response.use(
     if (response.status === 200) {
       return response.data;
     }
-    ElMessage.info(JSON.stringify(response.status));
+    alert(JSON.stringify(response.status));
     return response;
   },
   (error: AxiosError) => {
     const { response } = error;
     if (response) {
-      ElMessage.error(showCodeMessage(response.status));
+      alert(showCodeMessage(response.status));
       return Promise.reject(response.data);
     }
-    ElMessage.warning('Houve um erro nesta requisição.');
+    alert('Houve um erro nesta requisição.');
     return Promise.reject(error);
   },
 );
