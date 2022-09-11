@@ -6,11 +6,12 @@ const locale = zhCn;
 
 <template>
   <TheNavBar />
-
-  <div class="m-5">
+  <div class="container mx-auto">
     <el-config-provider :locale="locale">
-      <router-view></router-view>
+      <div class="m-1">
+        <router-view />
+      </div>
     </el-config-provider>
   </div>
-  <TheFooter></TheFooter>
+  <TheFooter />
 </template>
