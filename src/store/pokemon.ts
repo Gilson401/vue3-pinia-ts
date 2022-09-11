@@ -15,10 +15,7 @@ const usePokemon = defineStore({
 
   actions: {
     addPokemon(item: IPokemon): void {
-      console.log(item);
-
       const newItem: IPokemon = { imageSrc: item.imageSrc, name: item.name, id: this.items.length };
-      console.log(newItem);
       const list = [...this.items, newItem];
       this.items = list;
     },

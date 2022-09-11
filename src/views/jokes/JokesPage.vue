@@ -62,8 +62,6 @@ const jokeItem = ref<IJoke>();
 const loading = ref(false);
 
 const remove = (id: number | undefined) => {
-  console.log('remove', id);
-
   jokesStore.removeJoke(id);
   ElNotification({
     title: 'Sucesso.',

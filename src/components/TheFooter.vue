@@ -33,7 +33,7 @@ import { isDark, toggleDark } from '@/utils/dark';
 const { t, availableLocales, locale } = useI18n();
 const toggleLocales = () => {
   const locales = availableLocales;
-  console.log((locales.indexOf(locale.value) + 1) % locales.length);
+
   locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length];
 };
 </script>
