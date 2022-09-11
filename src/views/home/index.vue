@@ -1,12 +1,11 @@
 <template>
   <div class="container max-w-3xl mx-auto mt-40">
     <div class="mb-8">
-      <h1 class="font-serif font-bold text-5xl mb-8 text-center">{{ t('hello') }} Vue3, Pinia and Tyescript</h1>
+      <h1 class="font-serif font-bold text-5xl mb-8 text-center">{{ tUseI18n('hello') }} Vue3, Pinia and Tyescript</h1>
       <div class="mx-auto mb-4 grid grid-cols-3">
         <img src="@/assets/vue3.png" alt="vue3.png" />
         <img src="@/assets/typescript.png" alt="typescript.png" />
         <img src="@/assets/pinia.png" alt="pinia.png" />
-        <!-- <vitecamp class="w-52 h-52"></vitecamp> -->
       </div>
     </div>
     <div class="text-center text-md">
@@ -26,13 +25,13 @@
 
       <p class="mb-10">
         <a class="icon-btn mx-2" href="https://github.com/nekobc1998923/vitecamp" target="_blank" title="GitHub">
-          {{ t('based') }}
+          {{ tUseI18n('based') }}
         </a>
       </p>
 
       <p class="mb-10">
         <strong>Vitecamp</strong>
-        {{ t('includes features') }}
+        {{ tUseI18n('includes features') }}
       </p>
 
       <p class="mb-10">
@@ -41,30 +40,15 @@
           <template v-if="!item.isEnd"> | </template>
         </template>
       </p>
-      <div>{{ t('before coding') }} , {{ t('setup ide') }} <strong>VSCode</strong> + <strong>Volar</strong></div>
+      <div>
+        {{ tUseI18n('before coding') }} , {{ tUseI18n('setup ide') }} <strong>VSCode</strong> + <strong>Volar</strong>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import vitecamp from '@/assets/svg/vitecamp.svg?component';
-import serviceApi from '@/api/modules/login';
-
-const el = ref();
-const { t } = useI18n();
-// ElMessage.success({ message: 'welcome', duration: 1000 });
-// ElNotification({
-//   title: 'Issue',
-//   message: 'If you encounter problems in using the template, please raise them in the issue',
-//   duration: 0,
-// });
-
-onMounted(() => {
-  console.log('onMounted');
-  const res = serviceApi.getData('ditto');
-  el.value = res;
-});
+const { t: tUseI18n } = useI18n();
 
 const featureList = [
   {
