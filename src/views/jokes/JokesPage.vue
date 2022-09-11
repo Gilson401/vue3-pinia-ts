@@ -14,7 +14,7 @@
       </el-form-item>
     </el-form>
 
-    <div class="w-3xl min-h-20">
+    <div class="w-full md:w-2/3 lg:w-1/3 min-h-20">
       <el-container v-loading="loading">
         <el-card v-if="jokeItem?.joke" class="box-card">
           <template #header>
@@ -33,19 +33,22 @@
       </el-container>
     </div>
 
-    <div class="grid grid-cols-4 w-full mt-3 gap-2">
-      <el-card v-for="item of jokesStore.getJokes" :key="item.id" class="box-card">
-        <template #header>
-          <div class="card-header flex justify-between">
-            <span>Piada id: {{ item.id }}</span>
-            <el-button type="warning" @click="remove(item?.id)">Remove </el-button>
-          </div>
-        </template>
+    <p class="bg-blue-400 rounded-lg text-white text-2xl mt-3 p-5">Piadas salvas:</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 mt-3 gap-2">
+      <div v-for="item of jokesStore.getJokes" :key="item.id">
+        <el-card class="box-card">
+          <template #header>
+            <div class="card-header flex justify-between w-full">
+              <span>Piada id: {{ item.id }}</span>
+              <el-button type="warning" @click="remove(item?.id)">Remove </el-button>
+            </div>
+          </template>
 
-        <p class="text-xl">
-          {{ item.joke }}
-        </p>
-      </el-card>
+          <p class="text-xl">
+            {{ item.joke }}
+          </p>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +91,12 @@ const search = async () => {
 };
 
 const saveJokeToStore = () => {
-  const id = jokesStore.getJokes.length;
+  const ids = jokesStore.getJokes.map((item) => {
+    return item.id || 0;
+  });
+
+  const id = ids.length ? Math.max(...ids) + 1 : 0;
+
   jokesStore.addJoke({ joke: jokeItem.value?.joke, id });
   ElNotification({
     title: 'Sucesso.',
