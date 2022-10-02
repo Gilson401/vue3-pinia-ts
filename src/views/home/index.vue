@@ -3,9 +3,9 @@
     <div class="mb-8">
       <h1 class="font-serif font-bold text-5xl mb-8 text-center">{{ tUseI18n('hello') }} Vue3, Pinia and Tyescript</h1>
       <div class="mx-auto mb-4 grid grid-cols-3">
-        <img src="@/assets/vue3.png" alt="vue3.png" />
-        <img src="@/assets/typescript.png" alt="typescript.png" />
-        <img src="@/assets/pinia.png" alt="pinia.png" />
+        <img ref="vueLogo" src="@/assets/vue3.png" alt="vue3.png" />
+        <img ref="tsLogo" src="@/assets/typescript.png" alt="typescript.png" />
+        <img ref="piniaLogo" src="@/assets/pinia.png" alt="pinia.png" />
       </div>
     </div>
     <div class="text-center text-md">
@@ -14,10 +14,9 @@
 
         <ul class="text-lg">
           <li>Vue3 com Typescript e composition API;</li>
+          <li>GSAP anim library;</li>
           <li>Consumo de duas APIS públicas com serviços dedicados com Axios;</li>
           <li>Armazenamento de dados na store Pinia, uma para cada serviço;</li>
-          <li></li>
-          <li></li>
         </ul>
 
         <p class="my-20 font-semibold text-2xl">Use o menu no topo da página para navegar.</p>
@@ -48,6 +47,36 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import gsap from 'gsap';
+
+const [vueLogo, tsLogo, piniaLogo] = [ref(null), ref(null), ref(null)];
+onMounted(() => {
+  gsap.from(vueLogo.value, {
+    delay: 0.5,
+    duration: 1,
+    x: '-100',
+    autoAlpha: 0,
+    ease: 'back.out(1.7)',
+  });
+
+  gsap.from(tsLogo.value, {
+    delay: 1,
+    duration: 1,
+    y: '-100',
+    autoAlpha: 0,
+    ease: 'back.out(1.7)',
+  });
+
+  gsap.from(piniaLogo.value, {
+    delay: 1.5,
+    duration: 1,
+    x: '+100',
+    autoAlpha: 0,
+    ease: 'back.out(1.7)',
+  });
+});
+
 const { t: tUseI18n } = useI18n();
 
 const featureList = [

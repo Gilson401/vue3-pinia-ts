@@ -62,17 +62,22 @@
       </div>
     </div>
   </div>
-  <div class="p-3 mt-3 h-96 bg-gray-100 w-full">
+  <div class="p-3 mt-3 bg-gray-100 w-full display-pokemons">
     <h3 class="text-2xl mb-3">Pokemons in Store Pinia</h3>
     <div class="grid grid-cols-4 lg:grid-cols-6 w-full mt-3 gap-2">
       <div
         v-for="item of pokemonStore.getItems"
+        :id="'poke' + item.id"
         :key="item.id"
+        ref="itemRefs"
         class="border rounded-lg justify-center flex bg-light-50 p-3"
       >
         <div class="truncate">
-          <div class="text-center truncate first-letter:uppercase font-bold">
-            {{ item?.name }}
+          <div class="justify-items-end grid grid-cols-3 text-center truncate">
+            <div class="first-letter:uppercase font-bold col-span-2">
+              {{ item?.name }}
+            </div>
+            <button class="rounded-sm px-3 text-red-600 bold">x</button>
           </div>
           <img :src="item?.imageSrc" class="w-20 h-20 mx-auto" :alt="item?.name" />
         </div>
@@ -82,17 +87,36 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, ref, reactive, watch } from 'vue';
+import gsap from 'gsap';
 import { useRoute } from 'vue-router';
-import { storeToRefs } from 'pinia';
 import { Search } from '@element-plus/icons-vue';
+import { storeToRefs } from 'pinia';
 import servicePokemon from '@/api/httpPokemon';
 import { IPokemon } from '@/types/pokemon';
 import usePokemon from '@/store/pokemon';
 
+const itemRefs = ref([]);
 const pokemonStore = usePokemon();
-
 const { items } = storeToRefs(pokemonStore);
+onMounted(() => console.log(itemRefs.value));
+
+async function increment(lastItem: string) {
+  await nextTick();
+  gsap.from(lastItem, {
+    delay: 0.01,
+    duration: 1,
+    x: '100',
+    autoAlpha: 0,
+    ease: 'back.out(1.7)',
+  });
+}
+
+watch(items, (newValue, oldValue) => {
+  const lastItem = `#poke${newValue.at(-1)?.id}`;
+  console.log({ newValue, oldValue }, lastItem);
+  increment(lastItem);
+});
 
 const pokemon = ref<IPokemon | undefined>();
 
@@ -194,3 +218,23 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.display-pokemons {
+  min-height: 384px;
+}
+</style>
